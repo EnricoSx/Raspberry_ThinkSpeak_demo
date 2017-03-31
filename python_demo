@@ -1,0 +1,30 @@
+import paho.mqtt.publish as publish
+from time import sleep
+import random
+
+channelID = "XXXXXX"
+apiKey = "XXXXXXXXXXX"
+useUnsecuredTCP = False
+useUnsecuredWebsockets = False
+
+
+topic = "channels/" + channelID + "/publish/" + apiKey
+
+while(True):
+	
+	# calcola le variabili v1,v2,v3,v4,v5,v6,v7,v8
+	# demo che genera numeri casuali, tu metti le variabili che ti servono ovviamente
+  v1 = random.randint(18,25)
+	v2 = random.randint(50,70)
+	v3 = random.randint(5,30)
+	v4 = random.randint(0,100)
+	v5 = random.randint(0,1)
+	v6 = random.randint(0,1)
+	v7 = random.randint(0,10)
+	v8 = random.uniform(1,2)
+	print(v1,v2,v3,v4,v5,v6,v7,v8)
+  
+  
+	messaggio = "field1=" + str(v1) + "&field2=" + str(v2) + "&field3=" + str(v3) + "&field4=" + str(v4) + "&field5=" + str(v5) + "&field6=" + str(v6) + "&field7=" + str(v7) + "&field8=" + str(v8)								
+	publish.single(topic, payload=messaggio, hostname="mqtt.thingspeak.com", port=1883, tls=None, transport="tcp")
+	sleep(60)
